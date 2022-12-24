@@ -1,0 +1,115 @@
+function filter_kruskal(G) is
+    if |G.E| < kruskal_threshold:
+        return kruskal(G)
+    pivot = choose_random(G.E)
+    
+  
+    
+    {\displaystyle E_{\leq }}
+  
+{\displaystyle E_{\leq }}, 
+  
+    
+    {\displaystyle E_{>}}
+  
+{\displaystyle E_{>}} = partition(G.E, pivot)
+    A = filter_kruskal(
+  
+    
+    {\displaystyle E_{\leq }}
+  
+{\displaystyle E_{\leq }})
+    
+  
+    
+    {\displaystyle E_{>}}
+  
+{\displaystyle E_{>}} = filter(
+  
+    
+    {\displaystyle E_{>}}
+  
+{\displaystyle E_{>}})
+    A = A ∪ filter_kruskal(
+  
+    
+    {\displaystyle E_{>}}
+  
+{\displaystyle E_{>}})
+    return A
+
+function partition(E, pivot) is
+    
+  
+    
+    {\displaystyle E_{\leq }}
+  
+{\displaystyle E_{\leq }} = ∅, 
+  
+    
+    {\displaystyle E_{>}}
+  
+{\displaystyle E_{>}} = ∅
+    foreach (u, v) in E do
+        if weight(u, v) <= pivot then
+            
+  
+    
+    {\displaystyle E_{\leq }}
+  
+{\displaystyle E_{\leq }} = 
+  
+    
+    {\displaystyle E_{\leq }}
+  
+{\displaystyle E_{\leq }} ∪ {(u, v)}
+        else
+            
+  
+    
+    {\displaystyle E_{>}}
+  
+{\displaystyle E_{>}} = 
+  
+    
+    {\displaystyle E_{>}}
+  
+{\displaystyle E_{>}} ∪ {(u, v)}
+    return 
+  
+    
+    {\displaystyle E_{\leq }}
+  
+{\displaystyle E_{\leq }}, 
+  
+    
+    {\displaystyle E_{>}}
+  
+{\displaystyle E_{>}}
+
+function filter(E) is
+    
+  
+    
+    {\displaystyle E_{\text{filtered}}}
+  
+{\displaystyle E_{\text{filtered}}} = ∅
+    foreach (u, v) in E do
+        if find_set(u) ≠ find_set(v) then
+            
+  
+    
+    {\displaystyle E_{\text{filtered}}}
+  
+{\displaystyle E_{\text{filtered}}} = 
+  
+    
+    {\displaystyle E_{\text{filtered}}}
+  
+{\displaystyle E_{\text{filtered}}} ∪ {(u, v)}
+    return 
+  
+    
+    {\displaystyle E_{\text{filtered}}}
+  
+{\displaystyle E_{\text{filtered}}}
